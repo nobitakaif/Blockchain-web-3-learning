@@ -9,6 +9,7 @@ import {
 import '@solana/wallet-adapter-react-ui/styles.css';
 import { Airdrop } from './components/Airdrop';
 import ShowBalance from './components/ShowBalance';
+import SendSolana from './components/sendToken';
 
 function App() {
   
@@ -20,8 +21,9 @@ function App() {
         <WalletProvider wallets={[]} autoConnect>
           <WalletModalProvider>
             <WalletMultiButton/>
-            <Airdrop/>
-            <ShowBalance/>
+            {/* <Airdrop/>
+            <ShowBalance/> */}
+            <SendSolana/>
             <WalletDisconnectButton/>
           </WalletModalProvider>
         </WalletProvider>
