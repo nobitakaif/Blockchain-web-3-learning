@@ -1,5 +1,5 @@
 
-
+// show the ethereum balance 
 import { createPublicClient, http } from "viem"
 import { mainnet } from "viem/chains"
 import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query"
