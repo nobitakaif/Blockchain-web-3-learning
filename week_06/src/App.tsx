@@ -1,6 +1,7 @@
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { http, createConfig, WagmiProvider, useConnect, useAccount, useBalance} from "wagmi"
+import { useRef } from "react"
+import { http, createConfig, WagmiProvider, useConnect, useAccount, useBalance, useSendTransaction} from "wagmi"
 import { mainnet } from "wagmi/chains"
 import { injected } from "wagmi/connectors"
 
@@ -53,10 +54,29 @@ function MyAddress(){
   </div>
 }
 
+
+
+
 function SendEth(){
+  const { data : hash , sendTransaction} = useSendTransaction()
+  const addressRef = useRef<HTMLInputElement|null>(null)
+
+  function sendBtn(){
+    const address = addressRef.current?.value
+    if(!address){
+      alert("please enter address then send again")
+      return;
+    }
+    sendTransaction({
+      to: address.toString() as `0x${string}`,
+      value : 100000000000000000n // 17 0s = 0.1 eth
+    })
+  }
+
   return <div>
-    <input type="text" />
-    <button>send eth</button>
+    <input type="text" ref={addressRef} />
+    <button onClick={sendBtn}>send Eth</button>
+    Signature : {hash}
   </div>
 }
 
