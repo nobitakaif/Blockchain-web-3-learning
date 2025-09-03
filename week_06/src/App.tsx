@@ -1,17 +1,16 @@
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { http, createConfig, WagmiProvider, useConnect} from "wagmi"
-import { base, mainnet } from "wagmi/chains"
+import { mainnet } from "wagmi/chains"
 import { injected } from "wagmi/connectors"
 
 const config = createConfig({
-  chains : [mainnet,base],
+  chains : [mainnet],
   connectors : [
     injected()
   ],
   transports : {
-    [mainnet.id] : http(),
-    [base.id] : http()
+    [mainnet.id] : http()
   }
 })
 
@@ -23,6 +22,7 @@ function App() {
     <>
     <WagmiProvider config={config}>
       <QueryClientProvider client={client}>
+        <WalletConnector/>
         <SendEth/>
       </QueryClientProvider>
     </WagmiProvider>
@@ -36,7 +36,7 @@ function WalletConnector(){
   const { connectors, connect} = useConnect()
   
   return connectors.map((item) =>(
-      <button onClick={()=> connect({item})} key={item.uid}>{item.name}</button>
+      <button onClick={() => connect({connector:item})} key={item.uid}>{item.name}</button>
     ))
     
 
