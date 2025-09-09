@@ -13,7 +13,29 @@ contract TestToken is Test{
         token = new MyToken(100);
     }
 
-    function testSimple() public {
-        assertEq(uint(1), uint(1),"ok");
+    function testBalance()public{
+        assertEq(token.balanceOf(address(this)),100, "ok");
+    }
+
+    function testMint() public {
+        
+        // Minting token my self when the constructor called we got 100 then i again .mint() it become 100 + 50 = 150
+        token.mint(address(this), 50);
+        assertEq(token.balanceOf(address(this)),uint(150),"ok");
+    
+    }
+
+    function testTranser() public {
+        // transfering token from myself to someone else we have initially 100 then become 50 after transfer 50
+        token.transfer(0x8a9B6eE6531cFdFaCAf629483ae6C105c6133fe9,50);
+        assertEq(token.balanceOf(address(this)),50);
+        assertEq(token.balanceOf(0x8a9B6eE6531cFdFaCAf629483ae6C105c6133fe9),50);
+        address nobitaAddress = address(this);
+        vm.prank(0x8a9B6eE6531cFdFaCAf629483ae6C105c6133fe9);
+        assertEq(token.balanceOf(nobitaAddress),50);
+
+        // vm.prank(0x8a9B6eE6531cFdFaCAf629483ae6C105c6133fe9);
+        // token.transfer(nobitaAddress,50);
+        // assertEq(token.balanceOf(address(this)),0);
     }
 }
