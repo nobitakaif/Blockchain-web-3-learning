@@ -10,6 +10,7 @@ contract MyToken is ERC20{
         // _mint() this function do -> when the code is deployed the it will automatically minting them who deployed the code for eg. myself, because i will deployed code. The amount that are in value arg
         // minting token myself
         _mint(msg.sender, _value);
+        owner = msg.sender;
     }
     
     function mint(address to , uint256 _amount)public {
