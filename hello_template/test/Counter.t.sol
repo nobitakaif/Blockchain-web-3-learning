@@ -24,7 +24,8 @@ contract TestContract is Test {
         assertEq(c.num(), 102, "test passed"); 
 
     }
-
+    // everytime any function executed then constructor called evertime for testInc with 100 -> 102, 
+    // for testDec 100 -> 98
     function testDec() public {
         c.decreament();
         c.decreament();
