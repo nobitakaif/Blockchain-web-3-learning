@@ -34,7 +34,7 @@ contract TestToken is Test{
         vm.prank(0x8a9B6eE6531cFdFaCAf629483ae6C105c6133fe9); // now changing the address, that means give the persmission to someone else 
         token.transfer(address(this), 50); // giving back the token who is calling the function 
         assertEq(token.balanceOf(0x8a9B6eE6531cFdFaCAf629483ae6C105c6133fe9),0); // now someone else has 0 token, 50 -> 0
-        assertEq(token.balanceOf(address(this)), 100); // now who is calling the function who has 50 + 50
+        assertEq(token.balanceOf(address(this)), 100); // now who is calling the function who has 50 + 50  
         // vm.prank(0x8a9B6eE6531cFdFaCAf629483ae6C105c6133fe9);
         // token.transfer(nobitaAddress,50);
         // assertEq(token.balanceOf(address(this)),0);
