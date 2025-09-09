@@ -39,4 +39,14 @@ contract TestToken is Test{
         // token.transfer(nobitaAddress,50);
         // assertEq(token.balanceOf(address(this)),0);
     }
+
+    function testApprove() public { // this function allows to user that you can spent token from my behalf 
+        token.approve(0x8a9B6eE6531cFdFaCAf629483ae6C105c6133fe9, 50); // give persmission only 50 can spend from my address
+        assertEq(token.balanceOf(address(this)), 100);
+        vm.prank(0x8a9B6eE6531cFdFaCAf629483ae6C105c6133fe9); // change the address
+        // token.transferFrom(from address, to address, amount) arg
+        token.transferFrom(address(this),0x8a9B6eE6531cFdFaCAf629483ae6C105c6133fe9,40);
+        assertEq(token.balanceOf(address(this)),60);
+        assertEq(token.balanceOf(0x8a9B6eE6531cFdFaCAf629483ae6C105c6133fe9), 40);
+    }
 }
