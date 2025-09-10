@@ -49,4 +49,12 @@ contract TestToken is Test{
         assertEq(token.balanceOf(address(this)),60);
         assertEq(token.balanceOf(0x8a9B6eE6531cFdFaCAf629483ae6C105c6133fe9), 40);
     }
+
+    event Example(address indexed user, uint256 _time); // when event will trigger when the emit called by event name(Example) it used when user joined
+    // indexed is used when we know something might be required to filter (query), in this case we can filter the user based on the address on the frontend 
+    function  testJoinUser()public {
+        // emiting the even the 
+        emit Example(msg.sender, block.timestamp);
+    }
+
 }
