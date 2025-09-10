@@ -4,7 +4,7 @@ pragma solidity ^0.8.13;
 import "forge-std/Test.sol";
 
 import "../src/MyToken.sol";
-
+import { console } from  "forge-std/console.sol";
 contract TestToken is Test{
     MyToken token;
 
@@ -54,6 +54,10 @@ contract TestToken is Test{
     // indexed is used when we know something might be required to filter (query), in this case we can filter the user based on the address on the frontend 
     function  testJoinUser()public {
         // emiting the even the 
+        console.logString("hii there");
+        console.logAddress(msg.sender);
+        console.logUint(500);
+        console.logUint(block.timestamp);
         emit Example(msg.sender, block.timestamp);
     }
 
