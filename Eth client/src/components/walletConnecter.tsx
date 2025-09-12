@@ -1,5 +1,6 @@
 import { useAccount, useConnect, useConnectors, useDisconnect } from "wagmi"
 import TotalSupply from "./TotalSupply"
+import { AllowUSDT } from "./AllowUsdt"
 
 
 export default function WalletConnector(){
@@ -26,6 +27,7 @@ export default function WalletConnector(){
             }}>disconnect</button>
            </div>
             <TotalSupply/>
+            <AllowUSDT/>
         </div>
     }
 
