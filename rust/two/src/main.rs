@@ -1,4 +1,6 @@
 
+use std::fs;
+
 struct Shape{
     height : i32,
     width : i32,
@@ -9,7 +11,7 @@ impl Shape{
         return self.height * self.width
     }
 
-    fn perimeter(&self, num: i32)->i32{
+    fn perimeter(&self, _num: i32)->i32{
         return 2* (self.height + self.width);
     }
 
@@ -19,16 +21,78 @@ impl Shape{
 
 }
 
+enum Direction {
+    North, 
+    South, 
+    East, 
+    West,
+}
+
+
+
 
 fn main(){
     let r1 = Shape{
         width : 10,
         height : 29,
     };
+
+    let dir:Direction = Direction::South;
+
+    // let dir2 = dir;
+    moved_step(dir);
+    
+    // fs::read_to_string() this return you enum of <String, Error>
+    let contents = fs::read_to_string("a.txt"); // reading the content from the diff file 
+    // trying to catch the error 
+    match contents {
+        Ok(contents)=> println!("{}", contents), // if it successed to read the content 
+        Err(e)=>println!("error while reading the contents") // if it failed
+    }
+
     println!("alright");
     println!("{}",r1.area());
     println!("{}",Shape::shape());
     println!("{}",r1.perimeter(5));
+
+    let nob = String::from("nobitakaif");
+
+    let test = find_char_a(nob);
+    match test{
+        Option1::Some(idx, arr)=>println!("a found at index {}, {}", idx, arr[arr.len()-1]),
+        Option1::None => println!("value is not found")
+    }
+}
+
+enum Option1{
+    Some(u32, Vec<u32>),
+    None
+}
+
+fn find_char_a(str: String)-> Option1{
+    let mut index :u32 = 0;
+    let mut arr : Vec<u32> = vec![];
+    for c in str.chars(){
+        if c =='a'{
+            println!("alright");
+            arr.push(index)
+        }
+        index = index+1;
+    }
+    if arr.is_empty(){
+        return Option1::None;
+    }
+    else{
+        return Option1::Some(index,arr);
+    }
+}
+
+fn moved_step(dir:Direction) {
+    match dir{
+        Direction::North => println!("you moved north direction "),
+        Direction::East => println!("you moved east direction "),
+        _ => println!("you still stay there"),
+    }
 }
 
 
