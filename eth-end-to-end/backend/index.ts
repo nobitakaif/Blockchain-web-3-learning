@@ -20,9 +20,11 @@ app.post("/signup",async (req,res)=>{
 
     const hdNode = HDNodeWallet.fromSeed(seed)
     const child = hdNode.derivePath(`m/44'/60'/${userId}'/0`)
+
+    await client.query('UPDATE userBinance SET depositeAddress=$1, privateKey=$2 WHERE id=$3',[child.address,child.privateKey,userId])
     console.log(child)
     res.status(200).json({
-        msg : child.privateKey
+        userId : userId
     })
 })
 
