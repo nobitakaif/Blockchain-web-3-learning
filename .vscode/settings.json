@@ -1,0 +1,15 @@
+{
+    "rust-analyzer.workspace.discoverConfig": null
+    {
+        // Enable inlay hints (types, lifetimes, chaining)
+        "rust-analyzer.inlayHints.enable": true,
+        "rust-analyzer.inlayHints.typeHints.enable": true,
+        "rust-analyzer.inlayHints.parameterHints.enable": true,
+        "rust-analyzer.inlayHints.chainingHints.enable": true,
+        "rust-analyzer.inlayHints.closureReturnTypeHints.enable": true,
+      
+        // Optional: Show return types of functions
+        "rust-analyzer.inlayHints.returnTypeHints.enable": true
+      }
+      
+}

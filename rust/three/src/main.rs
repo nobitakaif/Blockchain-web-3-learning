@@ -10,10 +10,11 @@ fn main(){
 
     dotenv().ok(); // reading .env file acceptance
 
-    let http_server = env::var("http"); // it return you Result<string, Error>
-    
+    let http_server = env::var("http"); // it return you Result<String, Error>
+    // let http_wraped = http_server.unwrap(); //.upwrap() will throw if https is not present in the .env file and don't exicute code
+    // print!("{}",http_wraped);
     match http_server{
         Ok(str) => println!("your server is running on {}", str), // if successed 
-        Err(_e)=> println!("Error while reading .env file") // if not
+        Err(e)=> println!("Error while reading .env file") // if not
     }
 }
