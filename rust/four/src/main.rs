@@ -51,6 +51,12 @@ fn main() {
     print_display(second_user);
     // println!("{}",user.summarize());
     notify(user);
+
+    let rect = Rect{
+        height : 20,
+        width : 20
+    };
+    println!("{}",rect.area());
 }
 
 fn print_display<T: PrintUser>(str : T){
@@ -60,4 +66,16 @@ fn print_display<T: PrintUser>(str : T){
 fn notify<T : Summary + Fix>(u : T){ // now we use fix() and summarize() because Summary and Fix implementation abstract User struct  
     println!("{}",u.summarize());
     println!("{}",u.fix());
+}
+
+
+struct Rect<T>{
+    height : T,
+    width : T
+}
+
+impl<T: std::ops::Mul<Output = T>+ Copy > Rect<T>{
+    fn area(&self) -> T {
+        return self.height * self.width;
+    }
 }
