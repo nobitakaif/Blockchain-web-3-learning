@@ -33,9 +33,9 @@ trait PrintUser{
 }
 
 impl PrintUser for SecondUser{
-    // fn print(&self)->String{
-    //     return format!("name of the second user is {}",self.username);
-    // }
+    fn print(&self)->String{
+        return format!("name of the second user is {}",self.username);
+    }
 }
 
 fn main() {
@@ -43,10 +43,13 @@ fn main() {
         name : String::from("nobita"),
         age : 32
     };
-
+    
     let second_user = SecondUser{
         username : String::from("kaif"),
     };
+
+    let x = 5;
+    println!("{:?}",x);
 
     print_display(second_user);
     // println!("{}",user.summarize());
@@ -68,7 +71,7 @@ fn notify<T : Summary + Fix>(u : T){ // now we use fix() and summarize() because
     println!("{}",u.fix());
 }
 
-
+#[derive(Debug)]
 struct Rect<T>{
     height : T,
     width : T
