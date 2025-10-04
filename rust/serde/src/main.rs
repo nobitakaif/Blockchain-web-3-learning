@@ -13,23 +13,27 @@ fn main(){
         password : String::from("password")
     };
     // println!("{:?}",user.username);
-    let serialize = serde_json::to_string(&user); // it will convert obj into string 
-    match serialize{
-        Ok(str) =>{
-            println!("User look like {}",str);
-            let deserialize : User = serde_json::from_str(&str).expect("failed while converting into object");
-            println!("object {:?}",deserialize);
-            // match deserialize {
-            //     Ok(obj) => println!("{}",obj),
-            //     Err(_) => println!("something went wrong in deserialization")
-            // }
-        } // we can't use str.username becuase it's string not an obj
-        Err(_) => println!("Something happen wrong here")
-    }
+    let serialize  = serde_json::to_string(&user).unwrap(); // it will convert obj into string 
+    // match serialize{
+    //     Ok(str) =>{
+    //         println!("User look like {}",str);
+    //         let deserialize : User = serde_json::from_str(&str).expect("failed while converting into object"); // str to object
+    //         println!("object {:?}",deserialize);
+    //         // match deserialize {
+    //         //     Ok(obj) => println!("{}",obj),
+    //         //     Err(_) => println!("something went wrong in deserialization")
+    //         // }
+    //     } // we can't use str.username becuase it's string not an obj
+    //     Err(_) => println!("Something happen wrong here")
+    // }
     // let deserialize = serde_json::from_str(&serialize).expect("failed ");
     // match deserialize{
     //     Ok(obj) => println!("object {:?}", obj),
     //     Err(_) => println!("something went wrong")
     // }
     // println!("{}",serialize);
+
+    let string = String::from("{'username':'username','password':'password'");
+    let str_to_obj: User = serde_json::from_str(&serialize).unwrap();
+    println!("{:?}",str_to_obj);
 }
