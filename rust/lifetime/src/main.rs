@@ -1,17 +1,26 @@
 
+#[derive(Debug)]
+struct User{
+    username : String
+}
+
 
 fn main(){
     let a = String::from("nobita");
-    let b = String::from("kaif");
-    let ans = longest(&a, &b);
-    println!("{}",ans);
+    let mut ans; 
+    {   
+            
+        let b = String::from("kaif");
+        ans = longest(&a, &b);
+        println!("{:?}",ans);
+    }
+    
 }
 
-fn longest(str1: &str, str2: &str) -> &str{
-    if str1.len() > str2.len(){
+fn longest<'a>(str1: &'a str, str2: &'a str) -> &'a str {
+    if str1.len() > str2.len() {
         return str1;
-    }
-    else{
+    } else {
         return str2;
     }
 }
