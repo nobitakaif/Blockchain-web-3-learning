@@ -5,7 +5,7 @@ macro_rules! say_hello{
     }
 }
 
-// #[derive(Debug)] // using this macro we can print the Struct
+#[derive(Debug)] // using this macro we can print the Struct
 struct User {
     username : String,
     password : String,
@@ -19,11 +19,11 @@ struct User {
 //     }
 // }
 
-impl Debug for User{ // debug will work when we print like {:?} like this for this {} we have to use display imp 
-    fn fmt(&self, f: &mut Formatter<'_>)-> std::fmt::Result{
-        return write!(f, "Debug : users username is {}",self.username);
-    }
-}
+// impl Debug for User{ // debug will work when we print like {:?} like this for this {} we have to use display imp 
+//     fn fmt(&self, f: &mut Formatter<'_>)-> std::fmt::Result{
+//         return write!(f, "Debug : users username is {}",self.username);
+//     }
+// }
 
 trait Display{
     fn fmt(&self, f: &mut std::fmt::Formatter) ->std::fmt::Result{
@@ -44,6 +44,6 @@ fn main() {
         password : String::from("password"),
         age : 32
     };
-    println!("{}",u.fmt());
+    println!("{:?}",u);
     println!("{:?}",u);
 }
