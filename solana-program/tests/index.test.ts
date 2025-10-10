@@ -1,12 +1,13 @@
-
+import * as borsh from "borsh"
 import { expect, test } from "bun:test"
 import { Connection, Keypair, LAMPORTS_PER_SOL, PublicKey, SystemProgram, Transaction } from "@solana/web3.js"
-import { COUNTER_SIZE } from "./types/types";
+import { COUNTER_SIZE, schema } from "./types/types";
 
 let countrAccountKeypair  = Keypair.generate(); // for store the data on the blockchain
 let adminKeypair  = Keypair.generate(); // for admin or user wallet 
 
 const programId= new PublicKey("GdoFqYrwWWuHghoi1VX5JHWiBBheps3mnoSYM5oVNYRS")
+// console.log("GdoFqYrwWWuHghoi1VX5JHWiBBheps3mnoSYM5oVNYRS")
 
 test("program initializing",async ()=>{
     const connection = new Connection("http://localhost:8899") // connecting to the custom rpc url i.e running on the our terminal
@@ -35,5 +36,9 @@ test("program initializing",async ()=>{
     createAccountTxn.add(instruction);
     const signature = await connection.sendTransaction(createAccountTxn, [adminKeypair, countrAccountKeypair])
     await connection.confirmTransaction(signature)
-    console.log(countrAccountKeypair.publicKey.toBase58)
+    console.log(countrAccountKeypair.publicKey.toBase58())
+
+    const  dataAccountInfo = await  connection.getAccountInfo(countrAccountKeypair.publicKey)
+    const count =  borsh.deserialize(schema, dataAccountInfo?.data!)
+    console.log(count)
 })
