@@ -1,0 +1,14 @@
+[package]
+name = "native-counter"
+version = "0.1.0"
+edition = "2024"
+
+# whenever we run(execute) lib, it doesn't convert into binary because lib purpose is not to convert into binary it's purpose to uses for other person but still we want to convert into binary so we need to do something that let you do convert into binary  
+[lib]
+crate-type = ["cdylib","lib"]
+
+[dependencies]
+borsh = "1.5.7"
+borsh-derive = "1.5.7"
+solana-program = "1.18.26" 
+# this solana-program let you do bunch of export
