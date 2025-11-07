@@ -1,28 +1,49 @@
-use std::fmt::Debug;
-use std::fmt::Display;
-use std::fmt::Formatter;
-use std::fmt::Result;
-
-
-
-// #[derive(Debug)]
+#[derive(Debug, Clone,Copy)]
 struct User{
-    username : String,
-    password : String,
-}
-
-impl Debug for User{
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
-        write!(f ,"users look like : {}, {}",self.username, self.password)
-    }
+    is_male : bool,
+    age : u32,
 }
 fn main(){
-    let user = User{
-        username : String::from("nobitakaif"),
-        password : String::from("nobitapassword")
+    let u = User{
+        is_male : true,
+        age : 32
     };
-    println!("{:?}", user);
+    let u2 = u;
+    print!("{:?}", u);
 }
+
+
+
+
+
+
+
+
+
+
+// use std::fmt::Debug;
+// use std::fmt::Display;
+// use std::fmt::Formatter;
+// use std::fmt::Result;
+
+// // #[derive(Debug)]
+// struct User{
+//     username : String,
+//     password : String,
+// }
+
+// impl Debug for User{
+//     fn fmt(&self, f: &mut Formatter<'_>) -> Result {
+//         write!(f ,"users look like : {}, {}",self.username, self.password)
+//     }
+// }
+// fn main(){
+//     let user = User{
+//         username : String::from("nobitakaif"),
+//         password : String::from("nobitapassword")
+//     };
+//     println!("{:?}", user);
+// }
 
 
 
