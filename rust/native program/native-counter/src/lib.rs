@@ -30,9 +30,23 @@ pub fn counter_contract(
     accounts : &[AccountInfo],
     instruction_data : &[u8] // 0->255 [44,42,25,0,25]
 )->ProgramResult{
-    let account =  next_account_info(&mut accounts.iter())?;
+    // accounts (AccountInfo) holds multiple account we need to execute one by one
+    let account =  next_account_info(&mut accounts.iter())?; // reading first account of accounts.array() 
 
-    
+    let instruction_type = Instruction::try_from_slice(instruction_data)?; // converting bytes into enum Instruction 
+    let mut counter_data = Count::try_from_slice(&account.data.borrow())?; // converting bytes into struc 
+    match instruction_type{ // checking which enum matched  
+        Instruction::Increament(value)=>{
+            msg!("increamennt executing");
+            counter_data.value += value;
+        },
+        Instruction::Decreament(value)=>{
+            
+            counter_data.value -=  value;
+        }
+    }
+    counter_data.serialize(&mut *account.data.borrow_mut());
+    Ok(())
 }
 
 
