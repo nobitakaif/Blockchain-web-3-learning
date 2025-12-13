@@ -1,42 +1,28 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import axios from "axios"
-import { QueryClient, QueryClientProvider, useQuery, useQueryClient } from '@tanstack/react-query'
+import { Input } from "./components/ui/input";
+import { createConfig, http, injected, WagmiProvider } from "wagmi"
+import { mainnet, base } from "wagmi/chains"
+import { Button } from "./components/ui/button";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import SendEth from "./components/sendEth";
 
-const queryClient = new QueryClient()
+const querClient = new QueryClient()
 
-async function sendRequest(){
-  const res = await axios.get("https://jsonplaceholder.typicode.com/posts")
-  return res.data
-}
+const config = createConfig({
+  chains : [mainnet, base],
+  connectors : [
+    injected()
+  ],
+  transports:{
+    [mainnet.id] :http(),
+    [base.id] : http()
+  }
+})
 
 
-function App() {
-  
-  return (
-    <QueryClientProvider client={queryClient}>
-      <Posts/>
+export default function App(){
+  return <WagmiProvider config={config}>
+    <QueryClientProvider client={querClient} >
+      <SendEth/>
     </QueryClientProvider>
-  )
+  </WagmiProvider>
 }
-
-function Posts(){
-  // const client  = useQueryClient()
-  const {data, isLoading, error} = useQuery({queryKey : ["todo"], queryFn:sendRequest})
-  if(error){
-    return <div>
-      <h3>Error while fetching the data</h3>
-    </div>
-  }
-  if(isLoading){
-    return "Loading..."
-  }
-  return <div>
-        {JSON.stringify(data)}
-  </div>
-}
-
-
-export default App
