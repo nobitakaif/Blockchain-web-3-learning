@@ -12,7 +12,7 @@ export default function SendEth(){
     const { connectors, connect } = useConnect(); // this hooks comes from wagmi, which let you do to connect the application with wallet, 
     const  balance = useBalance({address : address})
     const [ isCopy, setIsCopy ] = useState(true)
-    const { data : hash, sendTransaction} = useSendTransaction()
+    const { data , sendTransaction} = useSendTransaction()
     const amountRef = useRef<null | HTMLInputElement>(null)
     const toRef = useRef<null | HTMLInputElement>(null)
     function  sendEth(){
@@ -55,9 +55,10 @@ export default function SendEth(){
             </div>
             <div className="w-full">
                 <Button variant={"link"} > {Number(balance.data?.value)/1e18} eth </Button> 
+                <span>{data}</span>
             </div>
             <div className=" w-100 flex flex-col gap-3 rounded-lg border p-2">
-                <Input placeholder="enter eht..." ref={amountRef}></Input>
+                <Input placeholder="enter eth..." ref={amountRef}></Input>
                 <Input placeholder="to..." ref={toRef}/>
                 <Button onClick={sendEth} >send 0.1 eth</Button>
                 {connectors.map((connector)=>( // iterating all the wallet which we had imported in App.tsx eg. injected, bckp, phnt
