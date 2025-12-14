@@ -1,4 +1,4 @@
-import { useAccount, useBalance, useConnect, useSendTransaction,  } from "wagmi";
+import { useAccount, useBalance, useConnect, useDisconnect, useSendTransaction,  } from "wagmi";
 import {formatUnits, parseEther, type Address} from "viem"
 
 import { Button } from "./ui/button";
@@ -6,11 +6,14 @@ import { Input } from "./ui/input";
 import { Check, Copy } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip"
 import { useRef, useState,  } from "react";
+import {toast} from "sonner";
 
 export default function SendEth(){
     const { address } = useAccount();
     const { connectors, connect } = useConnect(); // this hooks comes from wagmi, which let you do to connect the application with wallet, 
     const  balance = useBalance({address : address})
+    // const toast = useSonner()
+    const { disconnect } = useDisconnect();
     const [ isCopy, setIsCopy ] = useState(true)
     const { data , sendTransaction} = useSendTransaction()
     const amountRef = useRef<null | HTMLInputElement>(null)
@@ -27,16 +30,17 @@ export default function SendEth(){
         
         <div className="flex flex-col gap-2  items-center  border-black rounded-xl w-104 h-88 justify-center">
             <div className="flex items-center gap-1">
-                <Input type="text" value={address} className="w-91 font-bold " disabled ref={addressRef}>
+                <Input type="text" value={address?address : "please connect your wallet"} className="w-91 font-bold " disabled ref={addressRef}>
                     {/* <Copy/> */}
                 </Input>
                 { isCopy ? <div className="h-full flex justify-center items-center cursor-pointer" onClick={()=>{
                         navigator.clipboard.writeText(addressRef.current!.value)
                         setIsCopy(false)
+                        toast.success("address is copy")
                         setTimeout(()=>{
                             setIsCopy(true)
                         },3000)
-                    }}>
+                    }} >
                         <Tooltip>
                             <TooltipTrigger asChild>
                                 <Copy className="h-8 w-6 mt-1 text-gray-500"/>
@@ -49,13 +53,18 @@ export default function SendEth(){
                     </div> 
                 : 
                     <div>
-                        <Check className="text-green-400"/>
+                        {address && <Check className="text-green-400"/>}
                     </div>
                 }
             </div>
             <div className="w-full">
                 <Button variant={"link"} > {Number(balance.data?.value)/1e18} eth </Button> 
-                <span>{data}</span>
+                <Button variant={"outline"} className="text-center" disabled={!data} onClick={()=>{
+                    if(data){
+                        navigator.clipboard.writeText(data)
+                        toast.success("txn hash is copied")
+                    } 
+                }}>copy txn hash</Button>
             </div>
             <div className=" w-100 flex flex-col gap-3 rounded-lg border p-2">
                 <Input placeholder="enter eth..." ref={amountRef}></Input>
@@ -70,6 +79,9 @@ export default function SendEth(){
                         {connector.name}
                     </Button>
                 ))}
+                <Button onClick={()=>{
+                    disconnect()
+                }}> Disconnect </Button>
             </div>
         </div>
     </div>

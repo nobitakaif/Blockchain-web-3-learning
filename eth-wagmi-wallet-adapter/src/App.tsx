@@ -5,6 +5,7 @@ import { Button } from "./components/ui/button";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import SendEth from "./components/sendEth";
 import { ThemeProvider } from "./components/ui/theme-provider";
+import { Toaster } from "sonner";
 
 const querClient = new QueryClient()
 
@@ -27,5 +28,6 @@ export default function App(){
         <SendEth/>
       </QueryClientProvider>
     </WagmiProvider>
+    <Toaster position="bottom-right" richColors/>
   </ThemeProvider> 
 }
