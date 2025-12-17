@@ -13,7 +13,7 @@ impl Rect<'_>{
 }
 
 fn main() {
-    let str = String::from("nobitakaif");
+    let mut str = String::from("nobitakaif");
     let r;
     {
         
@@ -24,4 +24,12 @@ fn main() {
         }
     }
     println!("Hello, world! {}",r.printing());
+    println!("{}",str);
+    // let mut str2: &String;
+    {
+        let str2 = &str;
+
+    }
+    str.push_str("alright");
+    // println!("{}", str2);
 }
