@@ -22,7 +22,7 @@ struct Counter{ // defining the state or what we are storing on the blockchain
 entrypoint!(counter_contract);
 
 pub fn counter_contract(
-    program_id : &Pubkey,
+    program_id : &Pubkey,   
     accounts : &[AccountInfo],
     instruction_data : &[u8] // the instruction_data look like bunch of bit/bytes [1 0 1 1 0 1 0 1 0 0 1 0 1 0 1 1 1 0]  we need to some how make the function if first bits is  0 -> increase() if it is 1 -> decrease() something like that and rest of the bits could be arguments depend on the us whether we're sending args or not 
 ) -> ProgramResult{
