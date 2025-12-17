@@ -11,6 +11,13 @@ fn main() {
         username : String::from("nobitakaif"),
         password : String::from("nobitakaif")
     };
+
+    let vec = vec![1,2,3,4,];
+    let arr = vec.iter();
+    println!("array -> {:?}", &arr.data.borrow());
+    for v in arr{
+        println!("arr -> {}", v);
+    }
     
     let mut vec : Vec<u8> = Vec::new(); // defining vec array 
     let ans = user.serialize(&mut vec); // putting the number(bits & bytes) into array user.serialize(args[]) will convert into 0-255 numbers and put inside args[]
