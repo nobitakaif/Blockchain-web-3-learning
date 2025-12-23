@@ -59,7 +59,7 @@ fn main(){
 
     let test = find_char_a(nob);
     match test{
-        Option1::Some(idx, arr)=>println!("a found at index {}, {}", idx, arr[arr.len()-1]),
+        Option1::Some(idx, arr)=>println!("a found at index {x}, {}", idx, arr[arr.len()-1]),
         Option1::None => println!("value is not found")
     }
 }
