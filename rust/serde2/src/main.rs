@@ -12,12 +12,20 @@ fn print_type_of<T>(_: T) { // this function tells what's the variable type
 }
 fn main() {
     let user = User{
+        password : String::from("password"),
         username : String::from("nobitakaif"),
-        password : String::from("nobitakaif")
+        
     };
     // let v = Vec::new();
     let string_str = serde_json::to_string(&user); 
 
+
+    let mut st = String::from("noita");
+    let mut st2 = &st;
+    st.push_str("common");
+    print!("{}", st);
+
+    
     match string_str{
         Ok(s)=> {
             print_type_of(&s);
