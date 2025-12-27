@@ -4,7 +4,7 @@ struct User{
     age : u32,
 }
 fn main(){
-    let u = User{
+    let u = User{ // struct does follow ownership rule but this struct doesn't have any heap storage so we need to explicitly tell that follow Copy traits not Clone because Clone uses when data stored in head
         is_male : true,
         age : 32
     };
