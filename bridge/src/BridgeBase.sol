@@ -1,0 +1,42 @@
+// SPDX-License-Identifier: Unlicense
+pragma solidity ^0.8.5;
+
+import { Ownable } from "../lib/openzeppelin-contracts/contracts/access/Ownable.sol";
+import { IERC20 } from "../lib/openzeppelin-contracts/contracts/interfaces/IERC20.sol";
+import { ERC20 } from "../lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol";
+
+interface IBKAIF is IERC20{
+    function mint(address _to, uint256 _amount) external;
+    function burn(address _from, uint256 _amount) external;
+}
+
+contract BridgeBase is Ownable{
+
+    uint256 public balance;
+    address public tokenAddress;
+
+    event Burn(address indexed burner, uint256 amount);
+
+    mapping(address => uint256) public pedingBalance;
+
+    constructor(address _tokenAddress)Ownable(msg.sender){
+        tokenAddress = _tokenAdress;
+    }
+    
+    function burn(IBKAIF _tokenAddress, uint256 _amount) public {
+        require(address(_tokenAddress) == tokenAddress);
+        _tokenAddress.burn(msg.sender, _amount);
+        emit Burn(msg.sender, _amount);
+    }
+
+    function withdraw(IBKAIF _tokenAddress, uint256 _amount) public {
+        require(pedingBalance[msg.sender] >= _amount);
+        pedingBalance[msg.sender] -= _amount;
+        _tokenAddress.mint(msg.sender, _amount);
+    }
+
+    function depositedOnOtherSide(address userAccount, uint256 _amount) public onlyOnwer{
+        pendingBalance[userAccount] += _amount;
+    }
+
+}

@@ -9,7 +9,7 @@ contract Kaif is ERC20, Onwable{
     
     // address public owner;
     
-    constructor() ERC20("kaif","KIF"){
+    constructor() ERC20("kaif","KIF") Onwable(msg.sender){
         
     }
 
