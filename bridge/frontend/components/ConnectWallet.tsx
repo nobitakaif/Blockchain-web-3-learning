@@ -1,5 +1,6 @@
 import { useAccount, useConnect, useConnectors, useDisconnect, useReadContract } from "wagmi"
 import {ABIs} from "../abi.ts"
+import { AllowUSDT } from "./AllowUSDT.tsx"
 
 export const ConnectWallet=()=>{
     const connector = useConnectors()
@@ -13,6 +14,8 @@ export const ConnectWallet=()=>{
         functionName : "balanceOf",
         args :[address]     
     })
+
+    
 
     if(address){
         return <div className="w-full flex justify-center items-center h-44 gap-4"> 
@@ -29,6 +32,7 @@ export const ConnectWallet=()=>{
                 isLoading
             </div>
         }
+        <AllowUSDT/>
         </div>
     }
     
@@ -40,5 +44,6 @@ export const ConnectWallet=()=>{
                 {c.name}
             </button>
         ))}
+        
     </div>
 }
