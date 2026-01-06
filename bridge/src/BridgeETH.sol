@@ -9,6 +9,7 @@ contract BridgeETH is Ownable{
 
     uint256 public balance; 
     address public tokenAddress;
+    mapping(address => uint256) public pendingBalance;
 
     event Deposit(address indexed depositor, uint256 amount);
 
@@ -17,10 +18,10 @@ contract BridgeETH is Ownable{
     }
     
     function deposit(IERC20 _tokenAddress, uint256 _amount) public {
-        require(address(_token) == _tokenAddress);
+        require(address(_tokenAddress) == tokenAddress);
         require(_tokenAddress.allowance((msg.sender), address(this)) >= _amount);
         require(_tokenAddress.transferFrom(msg.sender, address(this), _amount));
-        emit Depist(msg.sender, _amount);
+        emit Deposit(msg.sender, _amount);
     }
 
     function withdraw(IERC20 _tokenAddress, uint256 _amount) public {

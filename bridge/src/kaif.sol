@@ -3,9 +3,9 @@
 pragma solidity ^0.8.5;
 
 import { ERC20 } from "../lib/openzeppelin-contracts/contracts/token/ERC20/ERC20.sol";
-import { Onwable } from "../lib/openzeppelin-contracts/contracts/access/Ownable.sol";
+import { Ownable } from "../lib/openzeppelin-contracts/contracts/access/Ownable.sol";
 
-contract Kaif is ERC20, Onwable{
+contract Kaif is ERC20, Ownable{
     
     // address public owner;
     

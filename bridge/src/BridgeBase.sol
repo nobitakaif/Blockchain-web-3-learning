@@ -17,10 +17,10 @@ contract BridgeBase is Ownable{
 
     event Burn(address indexed burner, uint256 amount);
 
-    mapping(address => uint256) public pedingBalance;
+    mapping(address => uint256) public pendingBalance;
 
     constructor(address _tokenAddress)Ownable(msg.sender){
-        tokenAddress = _tokenAdress;
+        tokenAddress = _tokenAddress;
     }
     
     function burn(IBKAIF _tokenAddress, uint256 _amount) public {
@@ -30,12 +30,12 @@ contract BridgeBase is Ownable{
     }
 
     function withdraw(IBKAIF _tokenAddress, uint256 _amount) public {
-        require(pedingBalance[msg.sender] >= _amount);
-        pedingBalance[msg.sender] -= _amount;
+        require(pendingBalance[msg.sender] >= _amount);
+        pendingBalance[msg.sender] -= _amount;
         _tokenAddress.mint(msg.sender, _amount);
     }
 
-    function depositedOnOtherSide(address userAccount, uint256 _amount) public onlyOnwer{
+    function depositedOnOtherSide(address userAccount, uint256 _amount) public onlyOwner{
         pendingBalance[userAccount] += _amount;
     }
 
