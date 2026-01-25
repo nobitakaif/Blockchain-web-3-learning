@@ -1,0 +1,6 @@
+
+$ bun run anchor-build && bun run codama:js
+$ cd anchor && anchor build
+bun: command not found: anchor
+error: script "anchor-build" exited with code 1
+error: script "setup" exited with code 1
